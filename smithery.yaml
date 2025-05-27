@@ -1,66 +1,29 @@
-name: reddit-trend-mcp
-version: 1.0.0
-description: "AI-powered Reddit trend analysis MCP server with hot posts, trending topics, and subreddit comparison capabilities"
-author: "Furkan Keskin"
-license: MIT
-
-# Server configuration
-server:
+startCommand:
   type: stdio
-  command: python
-  args: ["reddit_mcp_server.py"]
-
-# Environment variables needed
-environment:
-  - name: REDDIT_CLIENT_ID
-    description: "Reddit API Client ID"
-    required: true
-  - name: REDDIT_CLIENT_SECRET
-    description: "Reddit API Client Secret"
-    required: true
-  - name: REDDIT_USER_AGENT
-    description: "Reddit API User Agent"
-    default: "RedditTrendMCP/1.0"
-
-# Tools provided by this MCP
-tools:
-  - name: get_subreddit_hot_posts
-    description: "Get hot posts from a subreddit with analysis"
-  - name: get_subreddit_trending_topics
-    description: "Analyze trending topics and keywords in a subreddit"
-  - name: compare_subreddits
-    description: "Compare multiple subreddits by activity or engagement"
-  - name: get_reddit_search
-    description: "Search Reddit with advanced filtering options"
-  - name: get_subreddit_info
-    description: "Get detailed information about a subreddit"
-
-# Categories for discovery
-categories:
-  - social-media
-  - data-analysis
-  - web-search
-  - trending
-
-# Keywords for search
-keywords:
-  - reddit
-  - social-media
-  - trends
-  - analysis
-  - subreddit
-  - posts
-  - engagement
-
-# Homepage and repository
-homepage: "https://github.com/yourusername/reddit-trend-mcp"
-repository: "https://github.com/yourusername/reddit-trend-mcp"
-
-# Minimum requirements
-requirements:
-  python: ">=3.8"
-  packages:
-    - "mcp>=1.0.0"
-    - "praw>=7.7.1"
-    - "requests>=2.31.0"
-    - "python-dotenv>=1.0.0" 
+  configSchema:
+    type: object
+    required: ["clientId", "clientSecret"]
+    properties:
+      clientId:
+        type: string
+        title: "Reddit Client ID"
+        description: "Your Reddit API Client ID from https://www.reddit.com/prefs/apps"
+      clientSecret:
+        type: string
+        title: "Reddit Client Secret"
+        description: "Your Reddit API Client Secret"
+      userAgent:
+        type: string
+        title: "User Agent"
+        description: "User agent for Reddit API requests"
+        default: "RedditTrendMCP/1.0"
+  commandFunction: |-
+    (config) => ({
+      "command": "python",
+      "args": ["reddit_mcp_server.py"],
+      "env": {
+        "REDDIT_CLIENT_ID": config.clientId,
+        "REDDIT_CLIENT_SECRET": config.clientSecret,
+        "REDDIT_USER_AGENT": config.userAgent || "RedditTrendMCP/1.0"
+      }
+    }) 
