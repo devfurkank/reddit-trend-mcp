@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/devfurkank-reddit-trend-mcp-badge.png)](https://mseep.ai/app/devfurkank-reddit-trend-mcp)
+
 # 🔥 Reddit Trend MCP Server
 
 AI destekli Reddit trend analizi için **Model Context Protocol (MCP)** server'ı. Subreddit'lerdeki hot konuları, trending kelimeleri ve engagement metriklerini analiz eder.
